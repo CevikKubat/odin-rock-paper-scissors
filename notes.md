@@ -15,3 +15,12 @@
       1) return "userInput wins"
    5) else
       1) return computerWins 
+4) For loop to play 5 rounds
+   1) for 5 times
+      1) prompt user
+      2) determine winner
+      3) if computer wins
+         1) add to computer point counter
+      4) elif user wins
+         1) add to user point counter
+      5) add to loop counter

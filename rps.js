@@ -1,7 +1,23 @@
 function main(){
-    let userChoice = userInput();
-    let computerChoice = computerInput();
-    console.log(determineWinner(userChoice, computerChoice));
+    var userScore = 0;
+    var computerScore = 0;
+    for (let i = 0; i < 4; i++){
+        let userChoice = userInput();
+        let computerChoice = computerInput();
+        console.log(`Round ${i}: ${determineWinner(userChoice, computerChoice)}`);
+        if (determineWinner(userChoice, computerChoice) == "user wins"){
+            userScore++;
+        }
+        else if (determineWinner(userChoice, computerChoice) == "computer wins"){
+            computerScore++;
+        }
+    }
+    if (userScore > computerScore){
+        console.log("The user wins this battle. Refresh page to play again.")
+    }
+    else if (computerScore > userScore){
+        console.log("The computer wins this battle. Refresh page to play again.")
+    }
 }
 
 function userInput(){
@@ -28,6 +44,18 @@ function computerInput(){
 function determineWinner(userChoice, computerChoice){
     if (userChoice == computerChoice){
         return "draw";
+    }
+    else if (userChoice == "r" && computerChoice == "s"){
+        return "user wins"
+    }
+    else if (userChoice == "p" && computerChoice == "r"){
+        return "user wins"
+    }
+    else if (userChoice == "s" && computerChoice == "p"){
+        return "user wins"
+    }
+    else{
+        return "computer wins"
     }
 }
 

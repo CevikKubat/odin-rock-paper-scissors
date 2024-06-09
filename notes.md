@@ -24,3 +24,20 @@
       4) elif user wins
          1) add to user point counter
       5) add to loop counter
+
+## Overview: UI building
+
+- Clear
+- Scoreboard
+  - Show computer score
+  - Show player score
+  - Show round count
+- For 5 times
+  - Prompt player to choose a button via alert
+  - Register choice
+  - Determine round winner
+- Announce winner
+
+
+Register choice()
+- return first letter of id of button

@@ -1,61 +1,100 @@
 function main(){
-    var userScore = 0;
-    var computerScore = 0;
-    for (let i = 0; i < 1; i++){
-        let userChoice = userInput();
-        let computerChoice = computerInput();
-        console.log(`Round ${i + 1}: ${determineWinner(userChoice, computerChoice)}`);
-        if (determineWinner(userChoice, computerChoice) == "user wins"){
+    let roundCount = 1;
+    let userScore = 0;
+    let computerScore = 0;
+    let gameWinner = "";
+    let rpsButtons = document.querySelector("#rpsButtons");
+    let computerScoreDiv = document.querySelector("#computerScore");
+    let userScoreDiv = document.querySelector("#userScore");
+    let roundCountDiv = document.querySelector("#roundCount");
+    let resultsContainer = document.querySelector("#results");
+    rpsButtons.addEventListener("click", (event) =>{
+        // Clear elements
+        if (roundCount == 6){
+            // Remove elements here
+        }
+        // Get computer input
+        let computerChoice = getComputerInput();
+
+        // Get user input
+        let userChoice = event.target.id;
+
+        // Determine & announce round winner
+        let roundWinner = determineRoundWinner(userChoice, computerChoice);
+        const roundWinnerDiv = document.createElement("p");
+        roundWinnerDiv.textContent = `winner round ${roundCount}: ${roundWinner}`;
+        resultsContainer.appendChild(roundWinnerDiv);
+
+        // Update scores
+        if (roundWinner == "user"){
             userScore++;
         }
-        else if (determineWinner(userChoice, computerChoice) == "computer wins"){
+        else if (roundWinner == "computer"){
             computerScore++;
         }
-    }
-    if (userScore > computerScore){
-        console.log("The user wins this battle. Refresh page to play again.")
-    }
-    else if (computerScore > userScore){
-        console.log("The computer wins this battle. Refresh page to play again.")
-    }
+        // Update round
+        roundCount++;
+
+        if (userScore > computerScore){
+            gameWinner = "user";
+        }
+        else if (computerScore > userScore){
+            gameWinner = "computer";
+        }
+        else{
+            gameWinner = "no one"
+        }
+        // Finish game & announce winner
+        if (roundCount == 6){
+            computerScore = 0;
+            userScore = 0;
+            roundCount = 0;
+            const gameWinnerDiv = document.createElement("p");
+            gameWinnerDiv.textContent = `${gameWinner} wins this game`;
+            resultsContainer.appendChild(gameWinnerDiv);
+            const playAgainButton = document.createElement("button");
+            playAgainButton.textContent = "Play again!"
+            playAgainButton.addEventListener("click", e => {
+                while (resultsContainer.firstChild){
+                    resultsContainer.firstChild.remove();
+                }
+            })
+            resultsContainer.appendChild(playAgainButton);
+        }
+    })
 }
 
-function userInput(){
-    let userChoice = prompt("Rock, paper, scissors time! Type 'r', 'p' or 's'");
-    return userChoice;
-}
-
-function computerInput(){
+function getComputerInput(){
     computerChoice = Math.floor(Math.random() * 3);
     if (computerChoice == 0)
         {
-            return "r";
+            return "rock";
         }
     else if (computerChoice == 1)
         {
-            return "p";
+            return "paper";
         }
     else if (computerChoice == 2)
         {
-            return "s";
+            return "scissors";
         }
 }
 
-function determineWinner(userChoice, computerChoice){
+function determineRoundWinner(userChoice, computerChoice){
     if (userChoice == computerChoice){
         return "draw";
     }
-    else if (userChoice == "r" && computerChoice == "s"){
-        return "user wins"
+    else if (userChoice == "rock" && computerChoice == "scissors"){
+        return "user"
     }
-    else if (userChoice == "p" && computerChoice == "r"){
-        return "user wins"
+    else if (userChoice == "paper" && computerChoice == "rock"){
+        return "user"
     }
-    else if (userChoice == "s" && computerChoice == "p"){
-        return "user wins"
+    else if (userChoice == "scissors" && computerChoice == "paper"){
+        return "user"
     }
     else{
-        return "computer wins"
+        return "computer"
     }
 }
 

@@ -25,19 +25,10 @@
          1) add to user point counter
       5) add to loop counter
 
-## Overview: UI building
+## UI building - new game logic
 
-- Clear
-- Scoreboard
-  - Show computer score
-  - Show player score
-  - Show round count
-- For 5 times
-  - Prompt player to choose a button via alert
-  - Register choice
-  - Determine round winner
-- Announce winner
-
-
-Register choice()
-- return first letter of id of button
+1) Player chooses
+2) Play 5 rounds
+   1) For each round, announce round winner or draw
+3) Announce game winner
+4) Remove all created elements when user continues clicking and start game over (step 1)
